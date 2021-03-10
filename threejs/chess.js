@@ -40,7 +40,7 @@ function loadModel(lado) {
 	// Añade el objeto grafico a la escena
 	scene.add( cubo );
 	
-	const loader = new THREE.GLTFLoader();
+	const loader = new THREE.ObjectLoader();
 
 	loader.load( 'models/soldado/soldado.json', function ( gltf ) {
 		scene.add( gltf.scene );
