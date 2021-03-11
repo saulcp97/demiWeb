@@ -54,7 +54,7 @@ function loadPieces() {
 			const geometry = new THREE.BoxGeometry( 1, 1, 1);
 			// Configura un material
 			//var textura = new THREE.ImageUtils.loadTexture( 'images/ilovecg.png' );
-			var material = blackMaterial;
+			var material = whiteMaterial;
 			if((i + j) % 2 != 0) {
 				material = whiteMaterial;
 			}
