@@ -45,13 +45,20 @@ function loadTablero() {
 
 
 function loadPieces() {
+	var whiteMaterial =  new THREE.MeshLambertMaterial();
+	var blackMaterial =  new THREE.MeshLambertMaterial();
+	blackMaterial.color.set(0x000000);
 	for(let i = 0; i < tablero.length; ++i) {
 		for(let j = 0; j < tablero[i].length; ++j) {
 			
 			const geometry = new THREE.BoxGeometry( 1, 1, 1);
 			// Configura un material
-			var textura = new THREE.ImageUtils.loadTexture( 'images/ilovecg.png' );
-			var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors, map: textura, side: THREE.DoubleSide } );
+			//var textura = new THREE.ImageUtils.loadTexture( 'images/ilovecg.png' );
+			var material = blackMaterial;
+			if((i + j) % 2 != 0) {
+				material = whiteMaterial;
+			}
+			//var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.VertexColors, map: textura, side: THREE.DoubleSide } );
 			// Construye el objeto grafico 
 			tablero[i][j] = new THREE.Mesh(geometry, material );
 			// Añade el objeto grafico a la escena
