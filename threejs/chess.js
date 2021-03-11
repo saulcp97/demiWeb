@@ -46,6 +46,7 @@ function loadTablero() {
 
 function loadPieces() {
 	var whiteMaterial =  new THREE.MeshLambertMaterial();
+	whiteMaterial.color.set(0xFFFFFF);
 	var blackMaterial =  new THREE.MeshLambertMaterial();
 	blackMaterial.color.set(0x000000);
 	for(let i = 0; i < tablero.length; ++i) {
