@@ -8,7 +8,8 @@ const TABLETOPSIZE = 8
 var renderer, scene, camera, cubo;
 var cameraControls;
 var angulo = -0.01;
-var tablero = new Array(TABLETOPSIZE)
+var tablero = new Array(TABLETOPSIZE);
+var pieces = [];
 
 init();
 loadTablero();
@@ -24,10 +25,12 @@ function init() {
 
   scene = new THREE.Scene();
 
+	var light = new THREE.AmbientLight(0xffffff) 
+	scene.add(light)
+
   var aspectRatio = window.innerWidth / window.innerHeight;
   camera = new THREE.PerspectiveCamera( 50, aspectRatio , 0.1, 100 );
   camera.position.set( 1, 1.5, 2 );
-
   cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
   cameraControls.target.set( 0, 0, 0 );
 
@@ -51,11 +54,10 @@ function loadPieces() {
 	blackMaterial.color.set(0x000000);
 	for(let i = 0; i < tablero.length; ++i) {
 		for(let j = 0; j < tablero[i].length; ++j) {
-			
 			const geometry = new THREE.BoxGeometry( 1, 1, 1);
 			// Configura un material
 			//var textura = new THREE.ImageUtils.loadTexture( 'images/ilovecg.png' );
-			var material = whiteMaterial;
+			var material = blackMaterial;
 			if((i + j) % 2 != 0) {
 				material = whiteMaterial;
 			}
@@ -67,6 +69,36 @@ function loadPieces() {
 			scene.add(tablero[i][j]);
 		}
 	}
+	
+	for(let i = 0; i < tablero.length; ++i) {
+		if(i < 2 || i > tablero[i].length - 3) {
+			for(let j = 0; j < tablero[i].length; ++j) {
+				
+				let pieza = getModelPiece(1)
+				
+				pieza.position.set(i*1.1, 1,  j*1.1)
+				scene.add(pieza);
+				
+				pieces.push(pieza);
+			}
+		}
+	}
+}
+/*
+	ID para piezas
+	1 = Peones
+	2 = Torre
+	3 = Caballo
+	4 = Alfil
+	5 = Reina
+	6 = Rey
+*/
+
+function getModelPiece(id) {
+	let geometry = new THREE.BoxGeometry( 0.8, 1, 0.8);
+	let material = new THREE.MeshLambertMaterial({color: 0xFF0000});
+
+	return new THREE.Mesh(geometry, material );
 }
 
 function loadModel(lado) {
