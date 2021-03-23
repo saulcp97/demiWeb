@@ -52,6 +52,14 @@ function loadPieces() {
 	whiteMaterial.color.set(0xFFFFFF);
 	var blackMaterial =  new THREE.MeshLambertMaterial();
 	blackMaterial.color.set(0x000000);
+	
+	var loader = new THREE.OBJLoader();
+	loader.load('models/soldado/soldado.json',
+		function(object) {
+			scene.add(object)
+		}
+	)
+	
 	for(let i = 0; i < tablero.length; ++i) {
 		for(let j = 0; j < tablero[i].length; ++j) {
 			const geometry = new THREE.BoxGeometry( 1, 1, 1);
